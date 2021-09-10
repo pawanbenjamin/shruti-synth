@@ -15,7 +15,8 @@
     "@react-three/fiber": "^7.0.6",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "three": "^0.132.2"
+    "three": "^0.132.2",
+    "tone": "^14.7.77"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
