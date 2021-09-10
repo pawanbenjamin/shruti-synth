@@ -1,0 +1,22 @@
+{
+  "name": "shruti-midi-synth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@react-three/fiber": "^7.0.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "three": "^0.132.2"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
