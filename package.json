@@ -2,7 +2,7 @@
   "name": "shruti-midi-synth",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "default": "index.html",
   "scripts": {
     "start": "parcel index.html --open",
     "build": "parcel build index.html",
@@ -22,6 +22,9 @@
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-react": "^7.14.5",
-    "parcel-bundler": "^1.12.5"
+    "@parcel/transformer-image": "^2.0.0-rc.0",
+    "cssnano": "^5.0.8",
+    "parcel": "^2.0.0-rc.0",
+    "postcss": "^8.3.6"
   }
 }
