@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./style.css";
+
 import MIDI from "./components/MIDI";
 import Synth from "./components/Synth";
 import FreqTable from "./components/FreqTable";
