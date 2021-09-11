@@ -45,20 +45,19 @@ input {
 }
 
 .App {
-  margin-top: 15%;
   display: flex;
   justify-content: space-evenly;
   position: relative;
 }
 
 .synth {
-  position: absolute;
   display: flex;
   width: 100vw;
   justify-content: space-evenly;
 }
 
-.synth_freq_table {
+.synth_freq-table {
+  margin-top: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -73,6 +72,7 @@ input {
 }
 
 .synth_synth-param-container {
+  margin-top: 120px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
