@@ -129,15 +129,15 @@ function FreqTable(props) {
         <div className="root-container"></div>
 
         <div className="synth_freq-table_root-info_key">
-          <label className="rootF_label">Root Freq:</label>
+          <label className="rootF_label">Root Freq</label>
           <input
             className="text-input"
             type="text"
             placeholder="432"
             onChange={(e) => setRootFreq(e.target.value)}
           />
-          <label className="label">Root Key:</label>
-          <select className="select" onChange={changeKey}>
+          <label className="label">Root Key</label>
+          <select className="select-key" onChange={changeKey}>
             <option className="option" value="60">
               C
             </option>
@@ -179,7 +179,7 @@ function FreqTable(props) {
       </div>
       <div className="synth_freq-table_note-ratios">
         <label className="label" className="label">
-          Note Ratios:
+          Note Ratios
         </label>
         <select className="select">
           <option value="1/1" className="option">
