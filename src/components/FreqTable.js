@@ -16,14 +16,11 @@ export function createFreqTable(rootKey, scale, rootFreq) {
   while (copy <= 108) {
     let ratio = scale[scaleDegree % 12];
 
-    if (ratio.includes("/")) {
-      let [numer, denom] = ratio.split("/");
-      numer = parseInt(numer);
-      denom = parseInt(denom);
-      freqTable[copy] = (rootFreq * numer * oct) / denom;
-    } else {
-      freqTable[copy] = rootFreq * ratio * oct;
-    }
+    let [numer, denom] = ratio.split("/");
+    numer = parseInt(numer);
+    denom = parseInt(denom);
+    freqTable[copy] = (rootFreq * numer * oct) / denom;
+
     copy++;
     scaleDegree++;
     if (counter === 12) {
@@ -183,7 +180,8 @@ function FreqTable(props) {
       </div>
       <div className="synth_freq-table_note-ratios">
         <label className="label" className="label">
-          Note Ratios
+          Note Ratios <br />
+          (must be whole number ratios)
         </label>
         <label>1.</label>
         <input
@@ -216,7 +214,7 @@ function FreqTable(props) {
         <label htmlFor="">6.</label>
         <input
           type="text"
-          placeholder="5/4"
+          placeholder="4/3"
           onChange={(e) => changeRatio(e, setMa)}
         />
         <label htmlFor="">7.</label>
