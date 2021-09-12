@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { store } from "../state";
+
 export function createFreqTable(rootKey, scale, rootFreq) {
   //if root key is 58 (D)
 
@@ -14,10 +15,10 @@ export function createFreqTable(rootKey, scale, rootFreq) {
 
   while (copy <= 108) {
     let ratio = scale[scaleDegree % 12];
+
     let [numer, denom] = ratio.split("/");
     numer = parseInt(numer);
     denom = parseInt(denom);
-
     freqTable[copy] = (rootFreq * numer * oct) / denom;
 
     copy++;
@@ -179,101 +180,80 @@ function FreqTable(props) {
       </div>
       <div className="synth_freq-table_note-ratios">
         <label className="label" className="label">
-          Note Ratios
+          Note Ratios <br />
+          (must be whole number ratios)
         </label>
-        <select className="select">
-          <option value="1/1" className="option">
-            Sa 1/1
-          </option>
-        </select>
-        <select className="select" onChange={(e) => changeRatio(e, setKomalRe)}>
-          <option className="option" value="256/243">
-            Ati Komal Re 256/243
-          </option>
-          <option className="option" value="16/15">
-            Komal Re 16/15
-          </option>
-        </select>
-        <select className="select" onChange={(e) => changeRatio(e, setRe)}>
-          <option className="option" value="10/9">
-            Shuddha Re 10/9
-          </option>
-          <option className="option" value="9/8">
-            Tivra Re 9/8
-          </option>
-        </select>
-        <select className="select" onChange={(e) => changeRatio(e, setKomalGa)}>
-          <option className="option" value="32/27">
-            Ati Komal Ga 32/27
-          </option>
-          <option className="option" value="6/5">
-            Komal Ga 6/5
-          </option>
-        </select>
-        <select className="select" onChange={(e) => changeRatio(e, setGa)}>
-          <option className="option" value="5/4">
-            Shuddha Ga 5/4
-          </option>
-          <option className="option" value="81/64">
-            Tivra Ga 81/64
-          </option>
-        </select>
-        <select className="select" onChange={(e) => changeRatio(e, setMa)}>
-          <option className="option" value="4/3">
-            Shuddha Ma 4/3
-          </option>
-          <option className="option" value="27/20">
-            Shruti Ma 27/20
-          </option>
-        </select>
-        <select className="select" onChange={(e) => changeRatio(e, setTivraMa)}>
-          <option className="option" value="45/32">
-            Tivra Ma 45/32
-          </option>
-          <option className="option" value="729/512">
-            Tivra Tivra Ma 729/512
-          </option>
-        </select>
-        <select className="select">
-          <option value="3/2" className="option">
-            Pa 3/2
-          </option>
-        </select>
-        <select
-          className="select"
+        <label>1.</label>
+        <input
+          className="text-input"
+          type="text"
+          placeholder="1/1"
+          onChange={(e) => changeRatio(e, setSa)}
+        ></input>
+        <label>2.</label>
+        <input
+          placeholder="16/15"
+          onChange={(e) => changeRatio(e, setKomalRe)}
+        ></input>
+        <label>3.</label>
+        <input
+          placeholder="10/9"
+          onChange={(e) => changeRatio(e, setRe)}
+        ></input>
+        <label htmlFor="">4.</label>
+        <input
+          placeholder="32/27"
+          onChange={(e) => changeRatio(e, setKomalGa)}
+        ></input>
+        <label htmlFor="">5.</label>
+        <input
+          type="text"
+          placeholder="5/4"
+          onChange={(e) => changeRatio(e, setGa)}
+        />
+        <label htmlFor="">6.</label>
+        <input
+          type="text"
+          placeholder="4/3"
+          onChange={(e) => changeRatio(e, setMa)}
+        />
+        <label htmlFor="">7.</label>
+        <input
+          type="text"
+          placeholder="45/32"
+          onChange={(e) => changeRatio(e, setTivraMa)}
+        />
+        <label htmlFor="">8.</label>
+        <input
+          type="text"
+          placeholder="3/2"
+          onChange={(e) => changeRatio(e, setPa)}
+        />
+        <label htmlFor="">9.</label>
+        <input
+          type="text"
+          placeholder="8/5"
           onChange={(e) => changeRatio(e, setKomalDha)}
-        >
-          <option className="option" value="128/81">
-            Ati Komal Dha 128/81
-          </option>
-          <option className="option" value="8/5">
-            Komal Dha 8/5
-          </option>
-        </select>
-        <select className="select" onChange={(e) => changeRatio(e, setDha)}>
-          <option className="option" value="5/3">
-            Shuddha Dha 5/3
-          </option>
-          <option className="option" value="27/16">
-            Tivra Dha 27/16
-          </option>
-        </select>
-        <select className="select" onChange={(e) => changeRatio(e, setKomalNi)}>
-          <option className="option" value="16/9">
-            Ati Komal Ni 16/9
-          </option>
-          <option className="option" value="9/5">
-            Komal Ni 9/5
-          </option>
-        </select>
-        <select className="select" onChange={(e) => changeRatio(e, setNi)}>
-          <option className="option" value="15/8">
-            Shuddha Ni 15/8
-          </option>
-          <option className="option" value="243/128">
-            Tivra Ni 243/128
-          </option>
-        </select>
+        />
+
+        <label htmlFor="">10.</label>
+        <input
+          type="text"
+          placeholder="5/3"
+          onChange={(e) => changeRatio(e, setDha)}
+        />
+        <label>11.</label>
+        <input
+          type="text"
+          placeholder="9/5"
+          onChange={(e) => changeRatio(e, setKomalNi)}
+        />
+        <label>12.</label>
+        <input
+          type="text"
+          placeholder="15/8"
+          onChange={(e) => changeRatio(e, setNi)}
+        />
       </div>
     </div>
   );
