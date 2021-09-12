@@ -23,6 +23,7 @@ select {
 }
 
 input {
+  color: #00aaff;
   background: transparent;
   border: none;
 }
