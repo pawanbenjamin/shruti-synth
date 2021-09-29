@@ -17,6 +17,8 @@ const TuningPresets = ({
 }) => {
   const { state, dispatch } = useContext(store);
 
+  const [currentScale, setCurrentScale] = useState([]);
+
   const setJhinjhoti = (e) => {
     setSa("1/1");
     setKomalResetSa();
