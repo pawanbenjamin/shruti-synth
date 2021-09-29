@@ -41,7 +41,7 @@ function CameraControls() {
 }
 
 function Points({ state }) {
-  console.log("INSIDE POINTS", state);
+  // console.log("INSIDE POINTS", state);
 
   const imgTex = useLoader(THREE.TextureLoader, circleImg);
   const bufferRef = useRef();

@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { store } from "../state";
+import TuningPresets from "./TuningPresets";
 
 export function createFreqTable(rootKey, scale, rootFreq) {
   //if root key is 58 (D)
@@ -123,9 +124,9 @@ function FreqTable(props) {
 
   return (
     <div className="synth_freq-table">
-      {/* <button className="btn" onClick={() => console.log(state)}>
+      <button className="btn" onClick={() => console.log(state)}>
         Log out Context State
-      </button> */}
+      </button>
       <div className="synth_freq-table_root-info">
         <div className="root-container"></div>
 
@@ -178,6 +179,23 @@ function FreqTable(props) {
           </select>
         </div>
       </div>
+
+      {/* tuning presets dropdown */}
+      <TuningPresets
+        setSa={setSa}
+        setKomalRe={setKomalRe}
+        setRe={setRe}
+        setKomalGa={setKomalGa}
+        setGa={setGa}
+        setMa={setMa}
+        setTivraMa={setTivraMa}
+        setPa={setPa}
+        setKomalDha={setKomalDha}
+        setDha={setDha}
+        setKomalNi={setKomalNi}
+        setNi={setNi}
+      />
+
       <div className="synth_freq-table_note-ratios">
         <label className="label" className="label">
           Note Ratios <br />
