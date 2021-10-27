@@ -57,22 +57,24 @@ function Points({ state }) {
     [t, f, a]
   );
 
+  console.log(graph);
+
   const count = 100;
-  const sep = 3;
+  const dotSeparation = 1;
   let positions = useMemo(() => {
     let positions = [];
 
     for (let xi = 0; xi < count; xi++) {
       for (let zi = 0; zi < count; zi++) {
-        let x = sep * (xi - count / 2);
-        let z = sep * (zi - count / 2);
+        let x = dotSeparation * (xi - count / 2);
+        let z = dotSeparation * (zi - count / 2);
         let y = graph(x, z);
         positions.push(x, y, z);
       }
     }
 
     return new Float32Array(positions);
-  }, [count, sep, graph, state.noteObj.note]);
+  }, [count, dotSeparation, graph, state.noteObj.note]);
 
   useFrame(() => {
     t += 15;
@@ -82,8 +84,8 @@ function Points({ state }) {
     let i = 0;
     for (let xi = 0; xi < count; xi++) {
       for (let zi = 0; zi < count; zi++) {
-        let x = sep * (xi - count / 2);
-        let z = sep * (zi - count / 2);
+        let x = dotSeparation * (xi - count / 2);
+        let z = dotSeparation * (zi - count / 2);
 
         positions[i + 1] = graph(x, z);
         i += 3;
