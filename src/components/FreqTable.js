@@ -1,57 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { store } from "../state";
-
-export function createFreqTable(rootKey, scale, rootFreq) {
-  //if root key is 58 (D)
-
-  //createFrequency Table to use for note generation
-  const freqTable = {};
-
-  let copy = rootKey;
-  let scaleDegree = 0;
-  let oct = 1;
-
-  let counter = 1;
-
-  while (copy <= 108) {
-    let ratio = scale[scaleDegree % 12];
-
-    let [numer, denom] = ratio.split("/");
-    numer = parseInt(numer);
-    denom = parseInt(denom);
-    freqTable[copy] = (rootFreq * numer * oct) / denom;
-
-    copy++;
-    scaleDegree++;
-    if (counter === 12) {
-      counter = 0;
-      oct *= 2;
-    }
-    counter++;
-  }
-
-  let copy2 = rootKey - 1;
-  let scaleDegree2 = scale.length - 1;
-  let oct2 = 1 / 2;
-
-  while (copy2 >= 21) {
-    let ratio = scale[scaleDegree2 % 12];
-    let [numer, denom] = ratio.split("/");
-    numer = parseInt(numer);
-    denom = parseInt(denom);
-
-    freqTable[copy2] = (rootFreq * numer * oct2) / denom;
-
-    copy2--;
-    if (scaleDegree2 === 0) {
-      scaleDegree2 = scale.length;
-      oct2 = oct2 / 2;
-    }
-    scaleDegree2--;
-  }
-
-  return freqTable;
-}
+import { createFreqTable } from "./createFreqTable";
+import TuningPresets from "./TuningPresets";
 
 function FreqTable(props) {
   const { state, dispatch } = useContext(store);
@@ -123,9 +73,9 @@ function FreqTable(props) {
 
   return (
     <div className="synth_freq-table">
-      {/* <button className="btn" onClick={() => console.log(state)}>
+      <button className="btn" onClick={() => console.log(state)}>
         Log out Context State
-      </button> */}
+      </button>
       <div className="synth_freq-table_root-info">
         <div className="root-container"></div>
 
@@ -178,6 +128,23 @@ function FreqTable(props) {
           </select>
         </div>
       </div>
+
+      {/* tuning presets dropdown */}
+      <TuningPresets
+        setSa={setSa}
+        setKomalRe={setKomalRe}
+        setRe={setRe}
+        setKomalGa={setKomalGa}
+        setGa={setGa}
+        setMa={setMa}
+        setTivraMa={setTivraMa}
+        setPa={setPa}
+        setKomalDha={setKomalDha}
+        setDha={setDha}
+        setKomalNi={setKomalNi}
+        setNi={setNi}
+      />
+
       <div className="synth_freq-table_note-ratios">
         <label className="label" className="label">
           Note Ratios <br />
