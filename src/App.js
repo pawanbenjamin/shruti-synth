@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import MIDI from "./components/MIDI";
 import Synth from "./components/Synth";
@@ -8,13 +8,22 @@ import SynthParams from "./components/SynthParams";
 import Modal from "./components/Modal";
 
 function App() {
+  const [midiLearn, setMidiLearn] = useState(false);
+
+  useEffect(() => {
+    console.log(midiLearn);
+  });
+
   return (
     <div className="App">
+      <button onClick={() => setMidiLearn(() => !midiLearn)}>
+        Midi Learn Mode
+      </button>
       <Modal />
       <MIDI />
       <Synth />
       <FreqTable />
-      <SynthParams />
+      <SynthParams setMidiLearn={setMidiLearn} midiLearn={midiLearn} />
       {/* <WaveBkg /> */}
     </div>
   );

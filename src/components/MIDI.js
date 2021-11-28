@@ -4,6 +4,7 @@ import * as Tone from "tone";
 
 function MIDI(props) {
   const { state, dispatch } = useContext(store);
+  const { userMidiMap } = state;
 
   const [noteObj, setNoteObj] = useState({});
 
@@ -12,7 +13,24 @@ function MIDI(props) {
   }, [noteObj]);
 
   useEffect(() => {
-    console.log("State:", state);
+    for (const midiCC in userMidiMap) {
+      if (noteObj.note === +midiCC) {
+        const paramName = userMidiMap[midiCC];
+        if (paramName.includes(".")) {
+          const [parent, child] = paramName.split(".");
+          let paramObj = {};
+          paramObj[parent] = {};
+          paramObj[parent][child] =
+            child === "sustain" ? noteObj.velocity / 127 : noteObj.velocity;
+          console.log(paramObj);
+          state.synth.set(paramObj);
+        } else {
+          let paramObj = {};
+          paramObj[paramName] = noteObj.velocity;
+          state.synth.set(paramObj);
+        }
+      }
+    }
     if (noteObj.command === 144) {
       if (state.freqTable !== undefined) {
         const now = Tone.now();

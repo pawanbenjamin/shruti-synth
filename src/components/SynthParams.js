@@ -3,8 +3,9 @@ import * as Tone from "tone";
 
 import { store } from "../state";
 
-function SynthParams(props) {
+function SynthParams({ midiLearn, setMidiLearn }) {
   const { state, dispatch } = useContext(store);
+  const { noteObj } = state;
   const detuneRef = useRef();
 
   // Envelope State Variables
@@ -66,10 +67,22 @@ function SynthParams(props) {
     type,
   ]);
 
+  const addToMidiMap = (id) => {
+    if (midiLearn) {
+      dispatch({ type: "user-midi-map", value: id });
+    }
+  };
+
   return (
     <div className="synth_synth-param-container">
       <div className="synth_synth-param-container_single-param">
-        <label className="label">Volume:</label>
+        <label
+          className="label"
+          id="volume"
+          onClick={(e) => addToMidiMap(e.target.id)}
+        >
+          Volume:
+        </label>
         <input
           className="input"
           type="range"
@@ -83,7 +96,11 @@ function SynthParams(props) {
         />
       </div>
       <div className="synth_synth-param-container_single-param">
-        <label className="label" htmlFor="">
+        <label
+          className="label"
+          id="detune"
+          onClick={(e) => addToMidiMap(e.target.id)}
+        >
           Detune
         </label>
         <form ref={detuneRef}>
@@ -103,7 +120,11 @@ function SynthParams(props) {
         </form>
       </div>
       <div className="synth_synth-param-container_single-param">
-        <label className="label" htmlFor="">
+        <label
+          className="label"
+          id="portamento"
+          onClick={(e) => addToMidiMap(e.target.id)}
+        >
           Portamento
         </label>
         <input
@@ -117,7 +138,11 @@ function SynthParams(props) {
         />
       </div>
       <div className="synth_synth-param-container_single-param">
-        <label className="label" htmlFor="">
+        <label
+          className="label"
+          id="envelope.attack"
+          onClick={(e) => addToMidiMap(e.target.id)}
+        >
           Attack
         </label>
         <input
@@ -143,7 +168,11 @@ function SynthParams(props) {
         </select>
       </div>
       <div className="synth_synth-param-container_single-param">
-        <label className="label" htmlFor="">
+        <label
+          className="label"
+          id="envelope.decay"
+          onClick={(e) => addToMidiMap(e.target.id)}
+        >
           Decay:
         </label>
         <input
@@ -168,7 +197,11 @@ function SynthParams(props) {
         </select>
       </div>
       <div className="synth_synth-param-container_single-param">
-        <label className="label" htmlFor="">
+        <label
+          className="label"
+          id="envelope.release"
+          onClick={(e) => addToMidiMap(e.target.id)}
+        >
           Release
         </label>
         <input
@@ -193,7 +226,11 @@ function SynthParams(props) {
         </select>
       </div>
       <div className="synth_synth-param-container_single-param">
-        <label className="label" htmlFor="">
+        <label
+          className="label"
+          id="envelope.sustain"
+          onClick={(e) => addToMidiMap(e.target.id)}
+        >
           Sustain
         </label>
         <input

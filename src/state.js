@@ -35,6 +35,17 @@ const StateProvider = ({ children }) => {
         };
         return newState;
       }
+      case "user-midi-map": {
+        const newState = {
+          ...oldState,
+          userMidiMap: { ...oldState.userMidiMap },
+        };
+        if (newState.userMidiMap[oldState.noteObj.note]) {
+          delete newState.userMidiMap[oldState.noteObj.note];
+        }
+        newState.userMidiMap[oldState.noteObj.note] = action.value;
+        return newState;
+      }
       default:
         throw new Error();
     }
