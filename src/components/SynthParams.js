@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import * as Tone from "tone";
 
 import { store } from "../state";
 
 function SynthParams(props) {
   const { state, dispatch } = useContext(store);
+  const detuneRef = useRef();
 
   // Envelope State Variables
   const [volume, setVolume] = useState(-5);
@@ -85,15 +86,21 @@ function SynthParams(props) {
         <label className="label" htmlFor="">
           Detune
         </label>
-        <input
-          className="input"
-          type="range"
-          min="-100"
-          max="100"
-          step="1"
-          defaultValue={detune}
-          onChange={(e) => setDetune(e.target.value)}
-        />
+        <form ref={detuneRef}>
+          <input
+            className="input"
+            type="range"
+            min="-100"
+            max="100"
+            step="1"
+            defaultValue={detune}
+            onChange={(e) => setDetune(e.target.value)}
+            onMouseUp={(e) => {
+              setDetune(0);
+              detuneRef.current.reset();
+            }}
+          />
+        </form>
       </div>
       <div className="synth_synth-param-container_single-param">
         <label className="label" htmlFor="">
@@ -128,7 +135,7 @@ function SynthParams(props) {
           Attack Curve:
         </label>
         <select name="" id="" onChange={(e) => setAttackCurve(e.target.value)}>
-          <option selected value="linear">
+          <option defaultValue value="linear">
             Linear
           </option>
 
@@ -154,7 +161,7 @@ function SynthParams(props) {
           Decay Curve:
         </label>
         <select name="" id="" onChange={(e) => setDecayCurve(e.target.value)}>
-          <option selected value="linear">
+          <option defaultValue value="linear">
             Linear
           </option>
           <option value="exponential">Exponential</option>
@@ -179,7 +186,7 @@ function SynthParams(props) {
           Release Curve:
         </label>
         <select name="" id="" onChange={(e) => setReleaseCurve(e.target.value)}>
-          <option selected value="linear">
+          <option defaultValue value="linear">
             Linear
           </option>
           <option value="exponential">Exponential</option>
@@ -219,7 +226,7 @@ function SynthParams(props) {
           Wave Type
         </label>
         <select onChange={(e) => setType(e.target.value)}>
-          <option selected value="sine">
+          <option defaultValue value="sine">
             Sine
           </option>
           <option value="triangle">Triange</option>

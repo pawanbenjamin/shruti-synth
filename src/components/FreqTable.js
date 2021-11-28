@@ -116,7 +116,7 @@ function FreqTable(props) {
             <option className="option" value="68">
               G# / Ab
             </option>
-            <option className="option" value="69" selected>
+            <option className="option" value="69" defaultValue>
               A
             </option>
             <option className="option" value="70">

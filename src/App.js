@@ -4,7 +4,7 @@ import MIDI from "./components/MIDI";
 import Synth from "./components/Synth";
 import FreqTable from "./components/FreqTable";
 import SynthParams from "./components/SynthParams";
-import WaveBkg from "./components/WaveBkg";
+// import WaveBkg from "./components/WaveBkg";
 import Modal from "./components/Modal";
 
 function App() {

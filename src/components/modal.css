@@ -1,12 +1,13 @@
 .drop-down {
   position: absolute;
-  top: 25%;
-  left: 25%;
-  width: 50%;
-  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
   background-color: white;
-  animation: fadein 1s linear;
-  transition: all 1s ease-out;
+  animation: fadein 1.5s linear;
+  transition: all 1.5s ease-out;
 }
 
 .shown {
@@ -22,11 +23,14 @@
 @keyframes fadein {
   0% {
     opacity: 0;
+    transform: translateY(-50%);
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.7;
+    transform: translateY(-25%);
   }
   100% {
     opacity: 1;
+    transform: translateY(0%);
   }
 }

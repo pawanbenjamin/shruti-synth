@@ -9,7 +9,9 @@ function Modal(props) {
     <>
       <div className={visible ? " drop-down shown" : "drop-down hidden"}>
         <p>
-          Welcome to Your Favorite Microtonal Synth. Please use Google Chrome!
+          Welcome to Your Favorite Microtonal Synth. Unfortuntaly on Google
+          Chrome is the only browser which supports web MIDI. Please use Google
+          Chrome!
         </p>
         <button onClick={() => setVisible(() => !visible)}>Enter</button>
       </div>

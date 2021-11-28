@@ -12,6 +12,7 @@ function MIDI(props) {
   }, [noteObj]);
 
   useEffect(() => {
+    console.log("State:", state);
     if (noteObj.command === 144) {
       if (state.freqTable !== undefined) {
         const now = Tone.now();

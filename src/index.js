@@ -5,8 +5,6 @@ import App from "./App";
 
 import { StateProvider } from "./state";
 
-import WaveBkg from "./components/WaveBkg";
-
 ReactDOM.render(
   <React.StrictMode>
     <StateProvider>

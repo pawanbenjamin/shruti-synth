@@ -36,7 +36,7 @@ const TuningPresets = ({
 
   return (
     <select>
-      <option></option>
+      <option>Jhinjhoti</option>
     </select>
   );
 };
