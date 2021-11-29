@@ -2,6 +2,9 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { store } from "../state";
 import * as Tone from "tone";
 
+const isChrome =
+  !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+
 function MIDI(props) {
   const { state, dispatch } = useContext(store);
   const { userMidiMap } = state;
