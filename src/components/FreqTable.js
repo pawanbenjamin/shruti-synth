@@ -116,7 +116,7 @@ function FreqTable(props) {
             <option className="option" value="68">
               G# / Ab
             </option>
-            <option className="option" value="69" defaultValue>
+            <option className="option" value="69" selected>
               A
             </option>
             <option className="option" value="70">
@@ -146,79 +146,71 @@ function FreqTable(props) {
       />
 
       <div className="synth_freq-table_note-ratios">
-        <label className="label" className="label">
+        <h3 className="label" className="label">
           Note Ratios <br />
           (must be whole number ratios)
-        </label>
+        </h3>
         <label>1.</label>
-        <input
-          className="text-input"
-          type="text"
-          placeholder="1/1"
-          onChange={(e) => changeRatio(e, setSa)}
-        ></input>
+        <input placeholder={sa} onChange={(e) => changeRatio(e, setSa)}></input>
         <label>2.</label>
         <input
-          placeholder="16/15"
+          placeholder={komalRe}
           onChange={(e) => changeRatio(e, setKomalRe)}
         ></input>
         <label>3.</label>
-        <input
-          placeholder="10/9"
-          onChange={(e) => changeRatio(e, setRe)}
-        ></input>
+        <input placeholder={re} onChange={(e) => changeRatio(e, setRe)}></input>
         <label htmlFor="">4.</label>
         <input
-          placeholder="32/27"
+          placeholder={komalGa}
           onChange={(e) => changeRatio(e, setKomalGa)}
         ></input>
         <label htmlFor="">5.</label>
         <input
           type="text"
-          placeholder="5/4"
+          placeholder={ga}
           onChange={(e) => changeRatio(e, setGa)}
         />
         <label htmlFor="">6.</label>
         <input
           type="text"
-          placeholder="4/3"
+          placeholder={ma}
           onChange={(e) => changeRatio(e, setMa)}
         />
         <label htmlFor="">7.</label>
         <input
           type="text"
-          placeholder="45/32"
+          placeholder={tivraMa}
           onChange={(e) => changeRatio(e, setTivraMa)}
         />
         <label htmlFor="">8.</label>
         <input
           type="text"
-          placeholder="3/2"
+          placeholder={pa}
           onChange={(e) => changeRatio(e, setPa)}
         />
         <label htmlFor="">9.</label>
         <input
           type="text"
-          placeholder="8/5"
+          placeholder={komalDha}
           onChange={(e) => changeRatio(e, setKomalDha)}
         />
 
         <label htmlFor="">10.</label>
         <input
           type="text"
-          placeholder="5/3"
+          placeholder={dha}
           onChange={(e) => changeRatio(e, setDha)}
         />
         <label>11.</label>
         <input
           type="text"
-          placeholder="9/5"
+          placeholder={komalNi}
           onChange={(e) => changeRatio(e, setKomalNi)}
         />
         <label>12.</label>
         <input
           type="text"
-          placeholder="15/8"
+          placeholder={ni}
           onChange={(e) => changeRatio(e, setNi)}
         />
       </div>

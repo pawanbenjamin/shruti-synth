@@ -46,6 +46,18 @@ const StateProvider = ({ children }) => {
         newState.userMidiMap[oldState.noteObj.note] = action.value;
         return newState;
       }
+      case "delete-mapping": {
+        const newState = {
+          ...oldState,
+          userMidiMap: { ...oldState.userMidiMap },
+        };
+        for (let midiCC in newState.userMidiMap) {
+          if (midiCC === action.value) {
+            delete newState.userMidiMap[midiCC];
+          }
+        }
+        return newState;
+      }
       default:
         throw new Error();
     }

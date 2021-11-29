@@ -1,11 +1,9 @@
 .drop-down {
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
   width: 100vw;
   height: 100vh;
-  background-color: white;
+  background-color: rgb(241, 135, 135);
   animation: fadein 1.5s linear;
   transition: all 1.5s ease-out;
 }

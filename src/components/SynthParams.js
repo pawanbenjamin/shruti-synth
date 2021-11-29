@@ -3,6 +3,8 @@ import * as Tone from "tone";
 
 import { store } from "../state";
 
+import "./synthParams.css";
+
 function SynthParams({ midiLearn, setMidiLearn }) {
   const { state, dispatch } = useContext(store);
   const { noteObj } = state;
@@ -77,9 +79,9 @@ function SynthParams({ midiLearn, setMidiLearn }) {
     <div className="synth_synth-param-container">
       <div className="synth_synth-param-container_single-param">
         <label
-          className="label"
-          id="volume"
-          onClick={(e) => addToMidiMap(e.target.id)}
+        // className={midiLearn ? "learn" : "label"}
+        // id="volume"
+        // onClick={(e) => addToMidiMap(e.target.id)}
         >
           Volume:
         </label>
@@ -97,7 +99,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
       </div>
       <div className="synth_synth-param-container_single-param">
         <label
-          className="label"
+          className={midiLearn ? "learn" : "label"}
           id="detune"
           onClick={(e) => addToMidiMap(e.target.id)}
         >
@@ -121,7 +123,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
       </div>
       <div className="synth_synth-param-container_single-param">
         <label
-          className="label"
+          className={midiLearn ? "learn" : "label"}
           id="portamento"
           onClick={(e) => addToMidiMap(e.target.id)}
         >
@@ -139,7 +141,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
       </div>
       <div className="synth_synth-param-container_single-param">
         <label
-          className="label"
+          className={midiLearn ? "learn" : "label"}
           id="envelope.attack"
           onClick={(e) => addToMidiMap(e.target.id)}
         >
@@ -169,7 +171,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
       </div>
       <div className="synth_synth-param-container_single-param">
         <label
-          className="label"
+          className={midiLearn ? "learn" : "label"}
           id="envelope.decay"
           onClick={(e) => addToMidiMap(e.target.id)}
         >
@@ -198,7 +200,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
       </div>
       <div className="synth_synth-param-container_single-param">
         <label
-          className="label"
+          className={midiLearn ? "learn" : "label"}
           id="envelope.release"
           onClick={(e) => addToMidiMap(e.target.id)}
         >
@@ -227,7 +229,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
       </div>
       <div className="synth_synth-param-container_single-param">
         <label
-          className="label"
+          className={midiLearn ? "learn" : "label"}
           id="envelope.sustain"
           onClick={(e) => addToMidiMap(e.target.id)}
         >
@@ -244,9 +246,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
         />
       </div>
       <div className="synth_synth-param-container_single-param">
-        <label className="label" htmlFor="">
-          Partial Count
-        </label>
+        <label className="label">Partial Count</label>
         <input
           className="input"
           type="range"

@@ -6,6 +6,7 @@ import FreqTable from "./components/FreqTable";
 import SynthParams from "./components/SynthParams";
 // import WaveBkg from "./components/WaveBkg";
 import Modal from "./components/Modal";
+import UserMappings from "./components/UserMappings";
 
 function App() {
   const [midiLearn, setMidiLearn] = useState(false);
@@ -19,6 +20,7 @@ function App() {
       <button onClick={() => setMidiLearn(() => !midiLearn)}>
         Midi Learn Mode
       </button>
+      {midiLearn ? <UserMappings /> : null}
       <Modal />
       <MIDI />
       <Synth />

@@ -35,8 +35,8 @@ const TuningPresets = ({
   };
 
   return (
-    <select>
-      <option>Jhinjhoti</option>
+    <select onChange={(e) => e.target.value()}>
+      <option value={setJhinjhoti}>Jhinjoti</option>
     </select>
   );
 };
