@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
-import * as Tone from "tone";
 
 import { store } from "../state";
 
@@ -7,7 +6,7 @@ import "./synthParams.css";
 
 function SynthParams({ midiLearn, setMidiLearn }) {
   const { state, dispatch } = useContext(store);
-  const { noteObj } = state;
+
   const detuneRef = useRef();
 
   // Envelope State Variables
@@ -76,8 +75,9 @@ function SynthParams({ midiLearn, setMidiLearn }) {
   };
 
   return (
-    <div className="synth_synth-param-container">
-      <div className="synth_synth-param-container_single-param">
+    <div>
+      <h3>Synth:</h3>
+      <div>
         <label
         // className={midiLearn ? "learn" : "label"}
         // id="volume"
@@ -86,18 +86,17 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           Volume:
         </label>
         <input
-          className="input"
           type="range"
           min="-40"
           max="10"
-          step="1"
+          step=".01"
           defaultValue={volume}
           onChange={(e) => {
             setVolume(e.target.value);
           }}
         />
       </div>
-      <div className="synth_synth-param-container_single-param">
+      <div>
         <label
           className={midiLearn ? "learn" : "label"}
           id="detune"
@@ -107,7 +106,6 @@ function SynthParams({ midiLearn, setMidiLearn }) {
         </label>
         <form ref={detuneRef}>
           <input
-            className="input"
             type="range"
             min="-100"
             max="100"
@@ -121,7 +119,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           />
         </form>
       </div>
-      <div className="synth_synth-param-container_single-param">
+      <div>
         <label
           className={midiLearn ? "learn" : "label"}
           id="portamento"
@@ -130,7 +128,6 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           Portamento
         </label>
         <input
-          className="input"
           type="range"
           min="0"
           max="100"
@@ -148,7 +145,6 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           Attack
         </label>
         <input
-          className="input"
           type="range"
           min="0"
           max="10"
@@ -157,10 +153,8 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           onChange={(e) => setAttack(e.target.value)}
         />
       </div>
-      <div className="synth_synth-param-container_single-param">
-        <label className="label" htmlFor="">
-          Attack Curve:
-        </label>
+      <div>
+        <label>Attack Curve:</label>
         <select name="" id="" onChange={(e) => setAttackCurve(e.target.value)}>
           <option defaultValue value="linear">
             Linear
@@ -169,7 +163,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           <option value="exponential">Exponential</option>
         </select>
       </div>
-      <div className="synth_synth-param-container_single-param">
+      <div>
         <label
           className={midiLearn ? "learn" : "label"}
           id="envelope.decay"
@@ -178,7 +172,6 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           Decay:
         </label>
         <input
-          className="input"
           type="range"
           defaultValue={decay}
           min="0.1"
@@ -187,10 +180,8 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           onChange={(e) => setDecay(e.target.value)}
         />
       </div>
-      <div className="synth_synth-param-container_single-param">
-        <label className="label" htmlFor="">
-          Decay Curve:
-        </label>
+      <div>
+        <label>Decay Curve:</label>
         <select name="" id="" onChange={(e) => setDecayCurve(e.target.value)}>
           <option defaultValue value="linear">
             Linear
@@ -198,7 +189,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           <option value="exponential">Exponential</option>
         </select>
       </div>
-      <div className="synth_synth-param-container_single-param">
+      <div>
         <label
           className={midiLearn ? "learn" : "label"}
           id="envelope.release"
@@ -207,7 +198,6 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           Release
         </label>
         <input
-          className="label"
           type="range"
           min="1"
           max="3"
@@ -216,10 +206,8 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           onChange={(e) => setRelease(e.target.value)}
         />
       </div>
-      <div className="synth_synth-param-container_single-param">
-        <label className="label" htmlFor="">
-          Release Curve:
-        </label>
+      <div>
+        <label>Release Curve:</label>
         <select name="" id="" onChange={(e) => setReleaseCurve(e.target.value)}>
           <option defaultValue value="linear">
             Linear
@@ -227,7 +215,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           <option value="exponential">Exponential</option>
         </select>
       </div>
-      <div className="synth_synth-param-container_single-param">
+      <div>
         <label
           className={midiLearn ? "learn" : "label"}
           id="envelope.sustain"
@@ -236,7 +224,6 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           Sustain
         </label>
         <input
-          className="label"
           type="range"
           min="0"
           max="1"
@@ -245,10 +232,9 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           onChange={(e) => setSustain(e.target.value)}
         />
       </div>
-      <div className="synth_synth-param-container_single-param">
-        <label className="label">Partial Count</label>
+      <div>
+        <label>Partial Count</label>
         <input
-          className="input"
           type="range"
           min="0"
           max="15"
@@ -258,10 +244,8 @@ function SynthParams({ midiLearn, setMidiLearn }) {
         />
       </div>
 
-      <div className="synth_synth-param-container_single-param">
-        <label className="label" htmlFor="">
-          Wave Type
-        </label>
+      <div>
+        <label>Wave Type</label>
         <select onChange={(e) => setType(e.target.value)}>
           <option defaultValue value="sine">
             Sine

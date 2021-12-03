@@ -7,13 +7,10 @@ import SynthParams from "./components/SynthParams";
 // import WaveBkg from "./components/WaveBkg";
 import Modal from "./components/Modal";
 import UserMappings from "./components/UserMappings";
+import Filter from "./components/Filter";
 
 function App() {
   const [midiLearn, setMidiLearn] = useState(false);
-
-  useEffect(() => {
-    console.log(midiLearn);
-  });
 
   return (
     <div className="App">
@@ -26,6 +23,7 @@ function App() {
       <Synth />
       <FreqTable />
       <SynthParams setMidiLearn={setMidiLearn} midiLearn={midiLearn} />
+      <Filter />
       {/* <WaveBkg /> */}
     </div>
   );

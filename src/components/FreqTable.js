@@ -3,6 +3,8 @@ import { store } from "../state";
 import { createFreqTable } from "./createFreqTable";
 import TuningPresets from "./TuningPresets";
 
+import "./freqTable.css";
+
 function FreqTable(props) {
   const { state, dispatch } = useContext(store);
   // Default Key and Default Frequency
@@ -72,59 +74,34 @@ function FreqTable(props) {
   ]);
 
   return (
-    <div className="synth_freq-table">
-      <button className="btn" onClick={() => console.log(state)}>
-        Log out Context State
-      </button>
-      <div className="synth_freq-table_root-info">
-        <div className="root-container"></div>
+    <div>
+      <button onClick={() => console.log(state)}>Log out Context State</button>
+      <div>
+        <div></div>
 
-        <div className="synth_freq-table_root-info_key">
-          <label className="rootF_label">Root Freq</label>
+        <div>
+          <label>Root Freq</label>
           <input
-            className="text-input"
             type="text"
             placeholder="432"
             onChange={(e) => setRootFreq(e.target.value)}
           />
-          <label className="label">Root Key</label>
-          <select className="select-key" onChange={changeKey}>
-            <option className="option" value="60">
-              C
-            </option>
-            <option className="option" value="61">
-              C# / Db
-            </option>
-            <option className="option" value="62">
-              D
-            </option>
-            <option className="option" value="63">
-              D# / Eb
-            </option>
-            <option className="option" value="64">
-              E
-            </option>
-            <option className="option" value="65">
-              F
-            </option>
-            <option className="option" value="66">
-              F# / Gb
-            </option>
-            <option className="option" value="67">
-              G
-            </option>
-            <option className="option" value="68">
-              G# / Ab
-            </option>
-            <option className="option" value="69" selected>
+          <label>Root Key</label>
+          <select onChange={changeKey}>
+            <option value="60">C</option>
+            <option value="61">C# / Db</option>
+            <option value="62">D</option>
+            <option value="63">D# / Eb</option>
+            <option value="64">E</option>
+            <option value="65">F</option>
+            <option value="66">F# / Gb</option>
+            <option value="67">G</option>
+            <option value="68">G# / Ab</option>
+            <option value="69" selected>
               A
             </option>
-            <option className="option" value="70">
-              A# / Bb
-            </option>
-            <option className="option" value="71">
-              B
-            </option>
+            <option value="70">A# / Bb</option>
+            <option value="71">B</option>
           </select>
         </div>
       </div>
@@ -145,11 +122,8 @@ function FreqTable(props) {
         setNi={setNi}
       />
 
-      <div className="synth_freq-table_note-ratios">
-        <h3 className="label" className="label">
-          Note Ratios <br />
-          (must be whole number ratios)
-        </h3>
+      <div>
+        <h3>Note Ratios:</h3>
         <label>1.</label>
         <input placeholder={sa} onChange={(e) => changeRatio(e, setSa)}></input>
         <label>2.</label>

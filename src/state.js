@@ -21,6 +21,13 @@ const StateProvider = ({ children }) => {
         };
         return newState;
       }
+      case "filter": {
+        const newState = {
+          ...oldState,
+          filter: action.value,
+        };
+        return newState;
+      }
       case "freq-table": {
         const newState = {
           ...oldState,
