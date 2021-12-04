@@ -32,7 +32,7 @@ const TuningPresets = ({
     Yaman: function () {
       setSa("1/1");
       setKomalRe("16/15");
-      setRe("8/9");
+      setRe("9/8");
       setKomalGa("6/5");
       setGa("5/4");
       setMa("4/3");

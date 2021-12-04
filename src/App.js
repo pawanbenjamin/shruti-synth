@@ -7,7 +7,7 @@ import SynthParams from "./components/SynthParams";
 // import WaveBkg from "./components/WaveBkg";
 import Modal from "./components/Modal";
 import UserMappings from "./components/UserMappings";
-import Filter from "./components/Filter";
+// import Filter from "./components/Filter";
 
 function App() {
   const [midiLearn, setMidiLearn] = useState(false);
@@ -18,12 +18,12 @@ function App() {
         Midi Learn Mode
       </button>
       {midiLearn ? <UserMappings /> : null}
-      <Modal />
+      {/* <Modal /> */}
       <MIDI />
       <Synth />
       <FreqTable />
       <SynthParams setMidiLearn={setMidiLearn} midiLearn={midiLearn} />
-      <Filter />
+      {/* <Filter /> */}
       {/* <WaveBkg /> */}
     </div>
   );

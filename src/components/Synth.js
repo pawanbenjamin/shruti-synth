@@ -7,14 +7,14 @@ function Synth() {
 
   useEffect(() => {
     const synth = new Tone.PolySynth();
-    const filter = new Tone.Filter(0, "lowpass", -12);
+    // const filter = new Tone.Filter(0, "lowpass", -12);
     const gainNode = new Tone.Gain(0).toDestination();
 
-    synth.connect(filter);
-    filter.connect(gainNode);
+    synth.connect(gainNode);
+    // filter.connect(gainNode);
     gainNode.gain.rampTo(0.0012, 0.1);
 
-    dispatch({ type: "filter", value: filter });
+    // dispatch({ type: "filter", value: filter });
     dispatch({ type: "synth", value: synth });
     dispatch({ type: "gain-node", value: gainNode });
   }, []);
