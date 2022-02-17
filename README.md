@@ -2,4 +2,6 @@
 
 ## how to:
 
-plug in a midi keyboard and go!
+Webmidi Api is only supported by Google Chrome. For now...
+
+Plug in a midi keyboard, click anywhere on the page, and go!
