@@ -35,6 +35,10 @@ function UserMappings() {
 
   return (
     <div>
+      <p>
+        Click on a synth attribute blow in RED then touch the midi cc you want
+        the effect to be applied to
+      </p>
       <h3>current midi note: {state.noteObj.note}</h3>
       {content}
     </div>

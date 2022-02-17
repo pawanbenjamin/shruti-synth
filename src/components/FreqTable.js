@@ -75,10 +75,8 @@ function FreqTable(props) {
 
   return (
     <div>
-      <button onClick={() => console.log(state)}>Log out Context State</button>
+      {/* <button onClick={() => console.log(state)}>Log out Context State</button> */}
       <div>
-        <div></div>
-
         <div>
           <label>Root Freq</label>
           <input
@@ -124,69 +122,88 @@ function FreqTable(props) {
 
       <div>
         <h3>Note Ratios:</h3>
-        <label>1.</label>
-        <input placeholder={sa} onChange={(e) => changeRatio(e, setSa)}></input>
-        <label>2.</label>
-        <input
-          placeholder={komalRe}
-          onChange={(e) => changeRatio(e, setKomalRe)}
-        ></input>
-        <label>3.</label>
-        <input placeholder={re} onChange={(e) => changeRatio(e, setRe)}></input>
-        <label htmlFor="">4.</label>
-        <input
-          placeholder={komalGa}
-          onChange={(e) => changeRatio(e, setKomalGa)}
-        ></input>
-        <label htmlFor="">5.</label>
-        <input
-          type="text"
-          placeholder={ga}
-          onChange={(e) => changeRatio(e, setGa)}
-        />
-        <label htmlFor="">6.</label>
-        <input
-          type="text"
-          placeholder={ma}
-          onChange={(e) => changeRatio(e, setMa)}
-        />
-        <label htmlFor="">7.</label>
-        <input
-          type="text"
-          placeholder={tivraMa}
-          onChange={(e) => changeRatio(e, setTivraMa)}
-        />
-        <label htmlFor="">8.</label>
-        <input
-          type="text"
-          placeholder={pa}
-          onChange={(e) => changeRatio(e, setPa)}
-        />
-        <label htmlFor="">9.</label>
-        <input
-          type="text"
-          placeholder={komalDha}
-          onChange={(e) => changeRatio(e, setKomalDha)}
-        />
-
-        <label htmlFor="">10.</label>
-        <input
-          type="text"
-          placeholder={dha}
-          onChange={(e) => changeRatio(e, setDha)}
-        />
-        <label>11.</label>
-        <input
-          type="text"
-          placeholder={komalNi}
-          onChange={(e) => changeRatio(e, setKomalNi)}
-        />
-        <label>12.</label>
-        <input
-          type="text"
-          placeholder={ni}
-          onChange={(e) => changeRatio(e, setNi)}
-        />
+        <p>User inputs must be in whole number ratios</p>
+        <ul>
+          <label>1.&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input
+            placeholder={sa}
+            onChange={(e) => changeRatio(e, setSa)}
+          ></input>
+          <br />
+          <label>2.&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input
+            placeholder={komalRe}
+            onChange={(e) => changeRatio(e, setKomalRe)}
+          ></input>
+          <br />
+          <label>3.&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input
+            placeholder={re}
+            onChange={(e) => changeRatio(e, setRe)}
+          ></input>
+          <br />
+          <label htmlFor="">4.&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input
+            placeholder={komalGa}
+            onChange={(e) => changeRatio(e, setKomalGa)}
+          ></input>
+          <br />
+          <label htmlFor="">5.&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input
+            type="text"
+            placeholder={ga}
+            onChange={(e) => changeRatio(e, setGa)}
+          />
+          <br />
+          <label htmlFor="">6.&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input
+            type="text"
+            placeholder={ma}
+            onChange={(e) => changeRatio(e, setMa)}
+          />
+          <br />
+          <label htmlFor="">7.&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input
+            type="text"
+            placeholder={tivraMa}
+            onChange={(e) => changeRatio(e, setTivraMa)}
+          />
+          <br />
+          <label htmlFor="">8.&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input
+            type="text"
+            placeholder={pa}
+            onChange={(e) => changeRatio(e, setPa)}
+          />
+          <br />
+          <label htmlFor="">9.&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          <input
+            type="text"
+            placeholder={komalDha}
+            onChange={(e) => changeRatio(e, setKomalDha)}
+          />
+          <br />
+          <label htmlFor="">10.&nbsp;&nbsp;</label>
+          <input
+            type="text"
+            placeholder={dha}
+            onChange={(e) => changeRatio(e, setDha)}
+          />
+          <br />
+          <label>11.&nbsp;&nbsp;</label>
+          <input
+            type="text"
+            placeholder={komalNi}
+            onChange={(e) => changeRatio(e, setKomalNi)}
+          />
+          <br />
+          <label>12.&nbsp;&nbsp;</label>
+          <input
+            type="text"
+            placeholder={ni}
+            onChange={(e) => changeRatio(e, setNi)}
+          />
+        </ul>
       </div>
     </div>
   );
