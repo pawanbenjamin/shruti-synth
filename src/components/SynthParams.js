@@ -13,7 +13,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
   const [volume, setVolume] = useState(-5);
   const [detune, setDetune] = useState(0);
   const [portamento, setPortamento] = useState(0);
-  const [attack, setAttack] = useState(0.1);
+  const [attack, setAttack] = useState(0.05);
   const [attackCurve, setAttackCurve] = useState("linear");
   const [decay, setDecay] = useState(0.1);
   const [decayCurve, setDecayCurve] = useState("exponential");
@@ -119,7 +119,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           />
         </form>
       </div>
-      <div>
+      {/* <div>
         <label
           className={midiLearn ? "learn" : "label"}
           id="portamento"
@@ -135,7 +135,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           defaultValue={portamento}
           onChange={(e) => setPortamento(e.target.value)}
         />
-      </div>
+      </div> */}
       <div className="synth_synth-param-container_single-param">
         <label
           className={midiLearn ? "learn" : "label"}
@@ -148,7 +148,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           type="range"
           min="0"
           max="1"
-          step=".01"
+          step=".001"
           defaultValue={attack}
           onChange={(e) => setAttack(e.target.value)}
         />
