@@ -13,13 +13,13 @@ function SynthParams({ midiLearn, setMidiLearn }) {
   const [volume, setVolume] = useState(-5);
   const [detune, setDetune] = useState(0);
   const [portamento, setPortamento] = useState(0);
-  const [attack, setAttack] = useState(0.005);
+  const [attack, setAttack] = useState(0.1);
   const [attackCurve, setAttackCurve] = useState("linear");
   const [decay, setDecay] = useState(0.1);
   const [decayCurve, setDecayCurve] = useState("exponential");
   const [release, setRelease] = useState(1);
   const [releaseCurve, setReleaseCurve] = useState("exponential");
-  const [sustain, setSustain] = useState(0.3);
+  const [sustain, setSustain] = useState(1);
 
   // Oscillator Variables
   const [partialCount, setPartialCount] = useState(0);
@@ -147,8 +147,8 @@ function SynthParams({ midiLearn, setMidiLearn }) {
         <input
           type="range"
           min="0"
-          max="10"
-          step="0.1"
+          max="1"
+          step=".01"
           defaultValue={attack}
           onChange={(e) => setAttack(e.target.value)}
         />
