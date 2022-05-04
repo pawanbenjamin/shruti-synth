@@ -1,31 +1,31 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef } from 'react'
 
-import { store } from "../state";
+import { store } from '../state'
 
-import "./synthParams.css";
+import './synthParams.css'
 
 function SynthParams({ midiLearn, setMidiLearn }) {
-  const { state, dispatch } = useContext(store);
+  const { state, dispatch } = useContext(store)
 
-  const detuneRef = useRef();
+  const detuneRef = useRef()
 
   // Envelope State Variables
-  const [volume, setVolume] = useState(-5);
-  const [detune, setDetune] = useState(0);
-  const [portamento, setPortamento] = useState(0);
-  const [attack, setAttack] = useState(0.05);
-  const [attackCurve, setAttackCurve] = useState("linear");
-  const [decay, setDecay] = useState(0.1);
-  const [decayCurve, setDecayCurve] = useState("exponential");
-  const [release, setRelease] = useState(1);
-  const [releaseCurve, setReleaseCurve] = useState("exponential");
-  const [sustain, setSustain] = useState(1);
+  const [volume, setVolume] = useState(-5)
+  const [detune, setDetune] = useState(0)
+  const [portamento, setPortamento] = useState(0)
+  const [attack, setAttack] = useState(0.05)
+  const [attackCurve, setAttackCurve] = useState('linear')
+  const [decay, setDecay] = useState(0.1)
+  const [decayCurve, setDecayCurve] = useState('exponential')
+  const [release, setRelease] = useState(1)
+  const [releaseCurve, setReleaseCurve] = useState('exponential')
+  const [sustain, setSustain] = useState(1)
 
   // Oscillator Variables
-  const [partialCount, setPartialCount] = useState(0);
-  const [partials, setPartials] = useState([]);
-  const [phase, setPhase] = useState(0);
-  const [type, setType] = useState("sine");
+  const [partialCount, setPartialCount] = useState(0)
+  const [partials, setPartials] = useState([])
+  const [phase, setPhase] = useState(0)
+  const [type, setType] = useState('sine')
 
   // Synth Paramps Use Effect
   useEffect(() => {
@@ -49,7 +49,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           phase: phase,
           type: type,
         },
-      });
+      })
     }
   }, [
     volume,
@@ -66,13 +66,13 @@ function SynthParams({ midiLearn, setMidiLearn }) {
     partials,
     phase,
     type,
-  ]);
+  ])
 
   const addToMidiMap = (id) => {
     if (midiLearn) {
-      dispatch({ type: "user-midi-map", value: id });
+      dispatch({ type: 'user-midi-map', value: id })
     }
-  };
+  }
 
   return (
     <div>
@@ -90,15 +90,15 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           min="-40"
           max="10"
           step=".01"
-          defaultValue={volume}
+          value={volume}
           onChange={(e) => {
-            setVolume(e.target.value);
+            setVolume(e.target.value)
           }}
         />
       </div>
       <div>
         <label
-          className={midiLearn ? "learn" : "label"}
+          className={midiLearn ? 'learn' : 'label'}
           id="detune"
           onClick={(e) => addToMidiMap(e.target.id)}
         >
@@ -110,11 +110,11 @@ function SynthParams({ midiLearn, setMidiLearn }) {
             min="-100"
             max="100"
             step="1"
-            defaultValue={detune}
+            value={detune}
             onChange={(e) => setDetune(e.target.value)}
             onMouseUp={(e) => {
-              setDetune(0);
-              detuneRef.current.reset();
+              setDetune(0)
+              detuneRef.current.reset()
             }}
           />
         </form>
@@ -138,7 +138,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
       </div> */}
       <div className="synth_synth-param-container_single-param">
         <label
-          className={midiLearn ? "learn" : "label"}
+          className={midiLearn ? 'learn' : 'label'}
           id="envelope.attack"
           onClick={(e) => addToMidiMap(e.target.id)}
         >
@@ -149,7 +149,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           min="0"
           max="1"
           step=".001"
-          defaultValue={attack}
+          value={attack}
           onChange={(e) => setAttack(e.target.value)}
         />
       </div>
@@ -165,7 +165,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
       </div>
       <div>
         <label
-          className={midiLearn ? "learn" : "label"}
+          className={midiLearn ? 'learn' : 'label'}
           id="envelope.decay"
           onClick={(e) => addToMidiMap(e.target.id)}
         >
@@ -173,7 +173,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
         </label>
         <input
           type="range"
-          defaultValue={decay}
+          value={decay}
           min="0.1"
           max="1.0"
           step="0.01"
@@ -191,7 +191,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
       </div>
       <div>
         <label
-          className={midiLearn ? "learn" : "label"}
+          className={midiLearn ? 'learn' : 'label'}
           id="envelope.release"
           onClick={(e) => addToMidiMap(e.target.id)}
         >
@@ -202,7 +202,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           min="1"
           max="3"
           step=".1"
-          defaultValue={release}
+          value={release}
           onChange={(e) => setRelease(e.target.value)}
         />
       </div>
@@ -217,7 +217,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
       </div>
       <div>
         <label
-          className={midiLearn ? "learn" : "label"}
+          className={midiLearn ? 'learn' : 'label'}
           id="envelope.sustain"
           onClick={(e) => addToMidiMap(e.target.id)}
         >
@@ -228,7 +228,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           min="0"
           max="1"
           step="0.01"
-          defaultValue={sustain}
+          value={sustain}
           onChange={(e) => setSustain(e.target.value)}
         />
       </div>
@@ -239,7 +239,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           min="0"
           max="15"
           step="1"
-          defaultValue={partialCount}
+          value={partialCount}
           onChange={(e) => setPartialCount(e.target.value)}
         />
       </div>
@@ -256,7 +256,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
         </select>
       </div>
     </div>
-  );
+  )
 }
 
-export default SynthParams;
+export default SynthParams
