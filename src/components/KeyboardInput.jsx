@@ -25,6 +25,7 @@ const BLACK_KEYS =          ['w', 'e', null, 't', 'y', 'u', null, 'o', 'p', null
 function KeyboardInput({ enabled, baseOctave = 4, onOctaveChange }) {
   const { state } = useContext(store);
   const [activeKeys, setActiveKeys] = useState(new Set());
+  const [activeSemitones, setActiveSemitones] = useState(new Set());
 
   // ragaSwaraMap is keyed by absolute pitch class (0-11)
   const ragaSwaraMap = state.ragaSwaraMap || {};
@@ -41,40 +42,56 @@ function KeyboardInput({ enabled, baseOctave = 4, onOctaveChange }) {
     return ragaSwaraMap[midiNote % 12] || '';
   }, [ragaSwaraMap, baseMidiNote]);
 
-  const playNote = useCallback((key) => {
+  // Semitone-based play/release (used by pointer events and keyboard)
+  const playSemitone = useCallback((semitone) => {
     if (!state.synth || !state.freqTable) return;
-
-    const semitone = KEY_TO_SEMITONE[key.toLowerCase()];
-    if (semitone === undefined) return;
-
     const midiNote = baseMidiNote + semitone;
     const freq = state.freqTable[midiNote];
-
     if (freq) {
       if (Tone.context.state !== 'running') {
         Tone.start();
       }
-      const now = Tone.now();
-      state.synth.triggerAttack(freq, now, 0.7);
+      state.synth.triggerAttack(freq, Tone.now(), 0.7);
     }
-
-    return midiNote;
   }, [state.synth, state.freqTable, baseMidiNote]);
 
-  const releaseNote = useCallback((key) => {
+  const releaseSemitone = useCallback((semitone) => {
     if (!state.synth || !state.freqTable) return;
-
-    const semitone = KEY_TO_SEMITONE[key.toLowerCase()];
-    if (semitone === undefined) return;
-
     const midiNote = baseMidiNote + semitone;
     const freq = state.freqTable[midiNote];
-
     if (freq) {
-      const now = Tone.now();
-      state.synth.triggerRelease(freq, now + 0.05);
+      state.synth.triggerRelease(freq, Tone.now() + 0.05);
     }
   }, [state.synth, state.freqTable, baseMidiNote]);
+
+  const playNote = useCallback((key) => {
+    const semitone = KEY_TO_SEMITONE[key.toLowerCase()];
+    if (semitone === undefined) return;
+    playSemitone(semitone);
+  }, [playSemitone]);
+
+  const releaseNote = useCallback((key) => {
+    const semitone = KEY_TO_SEMITONE[key.toLowerCase()];
+    if (semitone === undefined) return;
+    releaseSemitone(semitone);
+  }, [releaseSemitone]);
+
+  // Pointer handlers for click/touch on visual keys
+  const handlePointerDown = useCallback((semitone, e) => {
+    e.preventDefault();
+    setActiveSemitones(prev => new Set(prev).add(semitone));
+    playSemitone(semitone);
+  }, [playSemitone]);
+
+  const handlePointerUp = useCallback((semitone, e) => {
+    e.preventDefault();
+    setActiveSemitones(prev => {
+      const next = new Set(prev);
+      next.delete(semitone);
+      return next;
+    });
+    releaseSemitone(semitone);
+  }, [releaseSemitone]);
 
   useEffect(() => {
     if (!enabled) return;
@@ -131,11 +148,17 @@ function KeyboardInput({ enabled, baseOctave = 4, onOctaveChange }) {
   }, [enabled, playNote, releaseNote]);
 
   useEffect(() => {
-    if (!enabled && activeKeys.size > 0) {
-      activeKeys.forEach(key => releaseNote(key));
-      setActiveKeys(new Set());
+    if (!enabled) {
+      if (activeKeys.size > 0) {
+        activeKeys.forEach(key => releaseNote(key));
+        setActiveKeys(new Set());
+      }
+      if (activeSemitones.size > 0) {
+        activeSemitones.forEach(s => releaseSemitone(s));
+        setActiveSemitones(new Set());
+      }
     }
-  }, [enabled, activeKeys, releaseNote]);
+  }, [enabled, activeKeys, releaseNote, activeSemitones, releaseSemitone]);
 
   if (!enabled) return null;
 
@@ -148,11 +171,16 @@ function KeyboardInput({ enabled, baseOctave = 4, onOctaveChange }) {
             const key = BLACK_KEYS[i];
             const inRaga = isSemitoneInRaga(semitone);
             const swaraLabel = getSwaraLabel(semitone);
+            const isActive = (key && activeKeys.has(key)) || activeSemitones.has(semitone);
             return (
               <div
                 key={i}
-                className={`black-key ${key && activeKeys.has(key) ? 'active' : ''} ${!inRaga ? 'dimmed' : ''}`}
+                className={`black-key ${isActive ? 'active' : ''} ${!inRaga ? 'dimmed' : ''}`}
                 style={{ left: `${i * 39 + 26}px` }}
+                onPointerDown={(e) => handlePointerDown(semitone, e)}
+                onPointerUp={(e) => handlePointerUp(semitone, e)}
+                onPointerLeave={(e) => { if (activeSemitones.has(semitone)) handlePointerUp(semitone, e); }}
+                onPointerCancel={(e) => { if (activeSemitones.has(semitone)) handlePointerUp(semitone, e); }}
               >
                 {key && <span className="key-label">{key.toUpperCase()}</span>}
                 <span className="note-name">{swaraLabel}</span>
@@ -165,10 +193,15 @@ function KeyboardInput({ enabled, baseOctave = 4, onOctaveChange }) {
             const semitone = WHITE_KEY_SEMITONES[i];
             const inRaga = isSemitoneInRaga(semitone);
             const swaraLabel = getSwaraLabel(semitone);
+            const isActive = (key && activeKeys.has(key)) || activeSemitones.has(semitone);
             return (
               <div
                 key={key || `w${i}`}
-                className={`white-key ${key && activeKeys.has(key) ? 'active' : ''} ${!inRaga ? 'dimmed' : ''}`}
+                className={`white-key ${isActive ? 'active' : ''} ${!inRaga ? 'dimmed' : ''}`}
+                onPointerDown={(e) => handlePointerDown(semitone, e)}
+                onPointerUp={(e) => handlePointerUp(semitone, e)}
+                onPointerLeave={(e) => { if (activeSemitones.has(semitone)) handlePointerUp(semitone, e); }}
+                onPointerCancel={(e) => { if (activeSemitones.has(semitone)) handlePointerUp(semitone, e); }}
               >
                 {key && <span className="key-label">{key.toUpperCase()}</span>}
                 <span className="note-name">{swaraLabel}</span>
