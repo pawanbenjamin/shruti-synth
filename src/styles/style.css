@@ -431,6 +431,18 @@ button:active {
   cursor: not-allowed;
 }
 
+/* Panic button */
+.panic-btn {
+  color: var(--led-red);
+  border-color: #442222;
+  background: linear-gradient(180deg, #2a1515 0%, #1a0a0a 100%);
+}
+
+.panic-btn:hover {
+  background: linear-gradient(180deg, #3a1818 0%, #2a0e0e 100%);
+  box-shadow: 0 0 8px rgba(221, 51, 51, 0.2), var(--shadow-raised);
+}
+
 /* MIDI Learn button */
 .midi-learn-btn {
   margin-left: auto;

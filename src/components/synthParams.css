@@ -27,6 +27,29 @@
   flex: 1.4;
 }
 
+/* Stacked column for Oscillator + Filter */
+.synth-params .panel-stack {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-right: 1px solid #333;
+}
+
+.synth-params .panel-stacked {
+  padding: 12px 18px;
+  border-right: none;
+  flex: none;
+}
+
+.synth-params .panel-stacked + .panel-stacked {
+  border-top: 1px solid #333;
+}
+
+/* EQ panel compact */
+.synth-params .panel-eq {
+  flex: 0.8;
+}
+
 .param-section-label {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 600;

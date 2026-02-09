@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import * as Tone from "tone";
+import { store } from "./state";
 
 import MIDI from "./components/MIDI";
 import Synth from "./components/Synth";
@@ -8,9 +10,16 @@ import KeyboardInput from "./components/KeyboardInput";
 import UserMappings from "./components/UserMappings";
 
 function App() {
+  const { state } = useContext(store);
   const [midiLearn, setMidiLearn] = useState(false);
   const [keyboardEnabled, setKeyboardEnabled] = useState(false);
   const [keyboardOctave, setKeyboardOctave] = useState(4);
+
+  const handlePanic = () => {
+    if (state.synth) {
+      state.synth.releaseAll(Tone.now());
+    }
+  };
 
   return (
     <div className="synth-chassis">
@@ -66,6 +75,10 @@ function App() {
             onClick={() => setMidiLearn(!midiLearn)}
           >
             {midiLearn ? 'MIDI Learn: On' : 'MIDI Learn'}
+          </button>
+
+          <button className="panic-btn" onClick={handlePanic}>
+            Panic
           </button>
         </div>
 

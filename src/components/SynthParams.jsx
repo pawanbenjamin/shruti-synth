@@ -32,6 +32,17 @@ function SynthParams({ midiLearn, setMidiLearn }) {
   const [phase, setPhase] = useState(0)
   const [type, setType] = useState('sine')
 
+  // Filter Variables
+  const [filterType, setFilterType] = useState('lowpass')
+  const [filterCutoff, setFilterCutoff] = useState(20000)
+  const [filterQ, setFilterQ] = useState(1)
+  const [filterRolloff, setFilterRolloff] = useState(-12)
+
+  // EQ Variables
+  const [eqLow, setEqLow] = useState(0)
+  const [eqMid, setEqMid] = useState(0)
+  const [eqHigh, setEqHigh] = useState(0)
+
   // Update master volume through state (controls gain node)
   useEffect(() => {
     dispatch({ type: 'master-volume', value: masterVolume })
@@ -78,6 +89,25 @@ function SynthParams({ midiLearn, setMidiLearn }) {
     phase,
     type,
   ])
+
+  // Filter Parameters Effect
+  useEffect(() => {
+    if (state.filter) {
+      state.filter.type = filterType
+      state.filter.frequency.rampTo(filterCutoff, 0.05)
+      state.filter.Q.rampTo(filterQ, 0.05)
+      state.filter.rolloff = filterRolloff
+    }
+  }, [state.filter, filterType, filterCutoff, filterQ, filterRolloff])
+
+  // EQ Parameters Effect
+  useEffect(() => {
+    if (state.eqNode) {
+      state.eqNode.low.value = eqLow
+      state.eqNode.mid.value = eqMid
+      state.eqNode.high.value = eqHigh
+    }
+  }, [state.eqNode, eqLow, eqMid, eqHigh])
 
   const addToMidiMap = (id) => {
     if (midiLearn) {
@@ -195,32 +225,164 @@ function SynthParams({ midiLearn, setMidiLearn }) {
         </div>
       </div>
 
-      {/* OSCILLATOR PANEL */}
-      <div className="panel">
-        <div className="param-section-label">Oscillator</div>
+      {/* OSCILLATOR + FILTER STACKED */}
+      <div className="panel-stack">
+        <div className="panel panel-stacked">
+          <div className="param-section-label">Oscillator</div>
+
+          <div className="param-row">
+            <div className="param-control">
+              <label>Wave</label>
+              <select onChange={(e) => setType(e.target.value)}>
+                <option defaultValue value="sine">Sine</option>
+                <option value="triangle">Triangle</option>
+                <option value="sawtooth">Sawtooth</option>
+                <option value="square">Square</option>
+              </select>
+            </div>
+
+            <div className="param-control">
+              <label>Partials</label>
+              <input
+                type="range"
+                min="0"
+                max="15"
+                step="1"
+                value={partialCount}
+                onChange={(e) => setPartialCount(e.target.value)}
+              />
+              <span className="param-value">{partialCount}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="panel panel-stacked">
+          <div className="param-section-label">Filter</div>
+
+          <div className="param-row">
+            <div className="param-control">
+              <label>Type</label>
+              <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
+                <option value="lowpass">LPF</option>
+                <option value="highpass">HPF</option>
+                <option value="bandpass">BPF</option>
+                <option value="notch">Notch</option>
+              </select>
+            </div>
+
+            <div className="param-control">
+              <label>Slope</label>
+              <select value={filterRolloff} onChange={(e) => setFilterRolloff(parseInt(e.target.value))}>
+                <option value="-12">-12dB</option>
+                <option value="-24">-24dB</option>
+                <option value="-48">-48dB</option>
+                <option value="-96">-96dB</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="param-row">
+            <div className="param-control">
+              <label
+                className={midiLearn ? 'learn' : ''}
+                id="filter.cutoff"
+                onClick={(e) => addToMidiMap(e.target.id)}
+              >
+                Cutoff
+              </label>
+              <input
+                type="range"
+                min="20"
+                max="20000"
+                step="1"
+                value={filterCutoff}
+                onChange={(e) => setFilterCutoff(parseFloat(e.target.value))}
+              />
+              <span className="param-value">{filterCutoff >= 1000 ? (filterCutoff / 1000).toFixed(1) + 'k' : Math.round(filterCutoff)}Hz</span>
+            </div>
+
+            <div className="param-control">
+              <label
+                className={midiLearn ? 'learn' : ''}
+                id="filter.Q"
+                onClick={(e) => addToMidiMap(e.target.id)}
+              >
+                Res
+              </label>
+              <input
+                type="range"
+                min="0.1"
+                max="20"
+                step="0.1"
+                value={filterQ}
+                onChange={(e) => setFilterQ(parseFloat(e.target.value))}
+              />
+              <span className="param-value">{parseFloat(filterQ).toFixed(1)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* EQ PANEL */}
+      <div className="panel panel-eq">
+        <div className="param-section-label">EQ</div>
 
         <div className="param-row">
           <div className="param-control">
-            <label>Wave</label>
-            <select onChange={(e) => setType(e.target.value)}>
-              <option defaultValue value="sine">Sine</option>
-              <option value="triangle">Triangle</option>
-              <option value="sawtooth">Sawtooth</option>
-              <option value="square">Square</option>
-            </select>
+            <label
+              className={midiLearn ? 'learn' : ''}
+              id="eq.low"
+              onClick={(e) => addToMidiMap(e.target.id)}
+            >
+              Low
+            </label>
+            <input
+              type="range"
+              min="-12"
+              max="12"
+              step="0.5"
+              value={eqLow}
+              onChange={(e) => setEqLow(parseFloat(e.target.value))}
+            />
+            <span className="param-value">{eqLow > 0 ? '+' : ''}{eqLow}dB</span>
           </div>
 
           <div className="param-control">
-            <label>Partials</label>
+            <label
+              className={midiLearn ? 'learn' : ''}
+              id="eq.mid"
+              onClick={(e) => addToMidiMap(e.target.id)}
+            >
+              Mid
+            </label>
             <input
               type="range"
-              min="0"
-              max="15"
-              step="1"
-              value={partialCount}
-              onChange={(e) => setPartialCount(e.target.value)}
+              min="-12"
+              max="12"
+              step="0.5"
+              value={eqMid}
+              onChange={(e) => setEqMid(parseFloat(e.target.value))}
             />
-            <span className="param-value">{partialCount}</span>
+            <span className="param-value">{eqMid > 0 ? '+' : ''}{eqMid}dB</span>
+          </div>
+
+          <div className="param-control">
+            <label
+              className={midiLearn ? 'learn' : ''}
+              id="eq.high"
+              onClick={(e) => addToMidiMap(e.target.id)}
+            >
+              High
+            </label>
+            <input
+              type="range"
+              min="-12"
+              max="12"
+              step="0.5"
+              value={eqHigh}
+              onChange={(e) => setEqHigh(parseFloat(e.target.value))}
+            />
+            <span className="param-value">{eqHigh > 0 ? '+' : ''}{eqHigh}dB</span>
           </div>
         </div>
       </div>

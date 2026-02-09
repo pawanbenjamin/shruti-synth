@@ -50,6 +50,12 @@ const StateProvider = ({ children }) => {
           gainNode: action.value,
         };
       }
+      case "eq-node": {
+        return {
+          ...oldState,
+          eqNode: action.value,
+        };
+      }
       case "master-volume": {
         // Update master volume and apply to gain node if available
         const newVolume = action.value;
