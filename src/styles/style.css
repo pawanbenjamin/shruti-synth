@@ -1,0 +1,517 @@
+/* ============================================
+   SHRUTI SYNTH — Vintage 70s Synthesizer Theme
+   ============================================ */
+
+:root {
+  /* Wood & Panel Colors */
+  --wood-dark: #3d2b1f;
+  --wood-mid: #5c3a21;
+  --wood-light: #7a5230;
+  --panel-bg: #1a1a1a;
+  --panel-surface: #2a2a2a;
+  --panel-raised: #333;
+  --panel-inset: #111;
+
+  /* Accent & Text */
+  --cream: #e8dcc8;
+  --cream-dim: #b8a88c;
+  --amber: #d4882b;
+  --amber-glow: #e8a030;
+  --amber-dim: #8a5a1a;
+  --led-green: #44cc44;
+  --led-red: #dd3333;
+  --text-label: #c8b89c;
+  --text-value: #e8dcc8;
+  --text-dim: #706050;
+
+  /* Metal Colors */
+  --metal-light: #555;
+  --metal-mid: #3a3a3a;
+  --metal-dark: #222;
+  --metal-shine: rgba(255,255,255,0.06);
+
+  /* Borders & Shadows */
+  --border-groove: #444;
+  --border-ridge: #555;
+  --shadow-inset: inset 0 1px 3px rgba(0,0,0,0.6);
+  --shadow-raised: 0 2px 4px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.05) inset;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 14px;
+  font-family: 'Rajdhani', 'Courier Prime', monospace;
+  background: #0a0a0a;
+  color: var(--cream);
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* ---- SYNTH CHASSIS (outer wrapper) ---- */
+.synth-chassis {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+  border-radius: 10px;
+}
+
+/* ---- WOOD SIDE PANELS ---- */
+.wood-panel {
+  width: 22px;
+  min-width: 22px;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(0,0,0,0.08) 0px,
+      transparent 2px,
+      transparent 4px,
+      rgba(0,0,0,0.05) 6px
+    ),
+    linear-gradient(
+      180deg,
+      var(--wood-dark) 0%,
+      var(--wood-mid) 8%,
+      var(--wood-light) 20%,
+      var(--wood-mid) 35%,
+      var(--wood-light) 50%,
+      var(--wood-mid) 65%,
+      var(--wood-light) 80%,
+      var(--wood-mid) 92%,
+      var(--wood-dark) 100%
+    );
+}
+
+.wood-left {
+  border-radius: 10px 0 0 10px;
+  box-shadow: inset -2px 0 4px rgba(0,0,0,0.4);
+}
+
+.wood-right {
+  border-radius: 0 10px 10px 0;
+  box-shadow: inset 2px 0 4px rgba(0,0,0,0.4);
+}
+
+/* ---- MAIN SYNTH PANEL ---- */
+.App {
+  flex: 1;
+  min-width: 0;
+  background: var(--panel-bg);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Brushed metal top edge */
+.App::before {
+  content: '';
+  display: block;
+  height: 5px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--metal-dark) 0%,
+      var(--metal-mid) 10%,
+      var(--metal-light) 25%,
+      var(--metal-mid) 40%,
+      var(--metal-light) 55%,
+      var(--metal-mid) 70%,
+      var(--metal-light) 85%,
+      var(--metal-mid) 90%,
+      var(--metal-dark) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 var(--metal-shine),
+    0 1px 2px rgba(0,0,0,0.4);
+}
+
+/* Brushed metal bottom edge */
+.App::after {
+  content: '';
+  display: block;
+  height: 5px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--metal-dark) 0%,
+      var(--metal-mid) 10%,
+      var(--metal-light) 25%,
+      var(--metal-mid) 40%,
+      var(--metal-light) 55%,
+      var(--metal-mid) 70%,
+      var(--metal-light) 85%,
+      var(--metal-mid) 90%,
+      var(--metal-dark) 100%
+    );
+  box-shadow:
+    inset 0 -1px 0 var(--metal-shine),
+    0 -1px 2px rgba(0,0,0,0.4);
+}
+
+/* ---- NAMEPLATE / HEADER ---- */
+.synth-header {
+  padding: 16px 30px 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  border-bottom: 2px solid #444;
+  background: linear-gradient(180deg, #222 0%, var(--panel-bg) 100%);
+}
+
+.synth-header h1 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-shadow: 0 0 12px rgba(212, 136, 43, 0.3);
+}
+
+.synth-header .subtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber-dim);
+}
+
+/* ---- CONTROL PANELS CONTAINER ---- */
+.panels-container {
+  display: flex;
+  gap: 0;
+  padding: 0;
+}
+
+/* ---- INDIVIDUAL PANEL SECTION ---- */
+.panel {
+  padding: 16px 18px;
+  border-right: 1px solid #333;
+  flex: 1;
+  min-width: 0;
+}
+
+.panel:last-child {
+  border-right: none;
+}
+
+.panel-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--amber-dim);
+}
+
+/* ---- CONTROL GROUP (vertical knob + label) ---- */
+.control-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.control-group label {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-label);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.control-group .value-display {
+  font-family: 'Courier Prime', monospace;
+  font-size: 11px;
+  color: var(--amber);
+  min-height: 16px;
+  text-align: center;
+}
+
+/* ---- CONTROLS ROW (horizontal group of knobs) ---- */
+.controls-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* ---- RANGE SLIDER (vintage style) ---- */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px;
+  height: 6px;
+  background: var(--panel-inset);
+  border-radius: 3px;
+  outline: none;
+  box-shadow: var(--shadow-inset);
+  margin: 8px 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #888, #444 60%, #222);
+  border: 1px solid #555;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #888, #444 60%, #222);
+  border: 1px solid #555;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+  background: radial-gradient(circle at 35% 35%, #aaa, #555 60%, #333);
+  box-shadow: 0 0 8px rgba(212, 136, 43, 0.3), 0 1px 4px rgba(0,0,0,0.6);
+}
+
+/* ---- TEXT INPUT (vintage) ---- */
+input[type="text"] {
+  font-family: 'Courier Prime', monospace;
+  font-size: 13px;
+  padding: 4px 6px;
+  background: var(--panel-inset);
+  color: var(--amber);
+  border: 1px solid #333;
+  border-radius: 2px;
+  box-shadow: var(--shadow-inset);
+  outline: none;
+  text-align: center;
+}
+
+input[type="text"]:focus {
+  border-color: var(--amber-dim);
+  box-shadow: var(--shadow-inset), 0 0 6px rgba(212, 136, 43, 0.2);
+}
+
+input[type="text"]::placeholder {
+  color: var(--amber-dim);
+}
+
+/* ---- SELECT (vintage) ---- */
+select {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  padding: 4px 8px;
+  background: var(--panel-inset);
+  color: var(--cream);
+  border: 1px solid #333;
+  border-radius: 2px;
+  box-shadow: var(--shadow-inset);
+  outline: none;
+  cursor: pointer;
+}
+
+select:focus {
+  border-color: var(--amber-dim);
+}
+
+/* ---- BUTTON (vintage toggle) ---- */
+button {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid #444;
+  border-radius: 3px;
+  cursor: pointer;
+  background: linear-gradient(180deg, #3a3a3a 0%, #252525 100%);
+  color: var(--cream-dim);
+  box-shadow: var(--shadow-raised);
+  transition: all 0.15s;
+}
+
+button:hover {
+  background: linear-gradient(180deg, #444 0%, #2a2a2a 100%);
+  color: var(--cream);
+}
+
+button:active {
+  box-shadow: var(--shadow-inset);
+  transform: translateY(1px);
+}
+
+/* ---- CONTROL BAR (bottom toolbar) ---- */
+.control-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 24px;
+  background: linear-gradient(180deg, #1e1e1e 0%, #161616 100%);
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  flex-wrap: wrap;
+}
+
+.control-bar-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-bar-group .divider {
+  width: 1px;
+  height: 24px;
+  background: #333;
+  margin: 0 4px;
+}
+
+/* Keyboard toggle */
+.keyboard-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.keyboard-toggle button.active {
+  background: linear-gradient(180deg, #4a3510 0%, #2a1f0a 100%);
+  color: var(--amber);
+  border-color: var(--amber-dim);
+  box-shadow: 0 0 8px rgba(212, 136, 43, 0.2), var(--shadow-raised);
+}
+
+.keyboard-toggle button.inactive {
+  background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+  color: #555;
+}
+
+/* Octave control */
+.octave-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--cream-dim);
+}
+
+.octave-control span {
+  font-family: 'Courier Prime', monospace;
+  color: var(--amber);
+  min-width: 20px;
+  text-align: center;
+}
+
+.octave-control button {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 2px;
+}
+
+.octave-control button:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+/* MIDI Learn button */
+.midi-learn-btn {
+  margin-left: auto;
+}
+
+.midi-learn-btn.active {
+  background: linear-gradient(180deg, #4a1010 0%, #2a0a0a 100%);
+  color: var(--led-red);
+  border-color: #662222;
+  box-shadow: 0 0 10px rgba(221, 51, 51, 0.3), var(--shadow-raised);
+  animation: pulse-red 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 8px rgba(221, 51, 51, 0.2), var(--shadow-raised); }
+  50% { box-shadow: 0 0 14px rgba(221, 51, 51, 0.4), var(--shadow-raised); }
+}
+
+/* ---- MIDI LEARN INDICATOR ---- */
+.learn {
+  color: var(--led-red) !important;
+  font-weight: 700;
+  cursor: pointer;
+  animation: pulse-red-text 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-red-text {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* ---- USER MAPPINGS ---- */
+.user-mappings {
+  padding: 12px 24px;
+  background: var(--panel-inset);
+  border-bottom: 1px solid #333;
+  font-size: 12px;
+}
+
+.user-mappings p {
+  color: var(--cream-dim);
+  margin-bottom: 8px;
+}
+
+.user-mappings h4 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--amber);
+  margin-bottom: 6px;
+}
+
+.user-mappings ul {
+  list-style: none;
+  padding: 0;
+}
+
+.user-mappings li {
+  margin-bottom: 4px;
+  font-family: 'Courier Prime', monospace;
+  font-size: 12px;
+  color: var(--cream-dim);
+}
+
+/* ---- SECTION LABELS ---- */
+h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin: 0 0 10px;
+}
+
+label {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-label);
+  margin-right: 6px;
+}
