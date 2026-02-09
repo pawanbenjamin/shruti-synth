@@ -124,6 +124,9 @@ function MIDI() {
       if (state.freqTable && state.synth) {
         const freq = state.freqTable[noteObj.note];
         if (freq) {
+          if (Tone.context.state !== 'running') {
+            Tone.start();
+          }
           const midiNote = noteObj.note;
           // Remove from sustained set if re-attacking
           sustainedNotes.current.delete(midiNote);

@@ -34,9 +34,14 @@ function SynthParams({ midiLearn, setMidiLearn }) {
 
   // Filter Variables
   const [filterType, setFilterType] = useState('lowpass')
-  const [filterCutoff, setFilterCutoff] = useState(20000)
+  // Slider is 0-1 (logarithmic), mapped to 20-20000Hz
+  const [filterCutoffNorm, setFilterCutoffNorm] = useState(1)
   const [filterQ, setFilterQ] = useState(1)
   const [filterRolloff, setFilterRolloff] = useState(-12)
+
+  // Log scale: 0→20Hz, 0.5→~632Hz, 1→20000Hz
+  const cutoffFromNorm = (norm) => 20 * Math.pow(1000, norm)
+  const filterCutoff = cutoffFromNorm(filterCutoffNorm)
 
   // EQ Variables
   const [eqLow, setEqLow] = useState(0)
@@ -94,18 +99,33 @@ function SynthParams({ midiLearn, setMidiLearn }) {
   useEffect(() => {
     if (state.filter) {
       state.filter.type = filterType
-      state.filter.frequency.rampTo(filterCutoff, 0.05)
-      state.filter.Q.rampTo(filterQ, 0.05)
       state.filter.rolloff = filterRolloff
     }
-  }, [state.filter, filterType, filterCutoff, filterQ, filterRolloff])
+  }, [state.filter, filterType, filterRolloff])
+
+  // Filter frequency & Q — use setTargetAtTime for glitch-free real-time control
+  useEffect(() => {
+    if (state.filter) {
+      const now = state.filter.context.currentTime
+      state.filter.frequency.cancelScheduledValues(now)
+      state.filter.frequency.setTargetAtTime(filterCutoff, now, 0.03)
+    }
+  }, [state.filter, filterCutoff])
+
+  useEffect(() => {
+    if (state.filter) {
+      const now = state.filter.context.currentTime
+      state.filter.Q.cancelScheduledValues(now)
+      state.filter.Q.setTargetAtTime(filterQ, now, 0.03)
+    }
+  }, [state.filter, filterQ])
 
   // EQ Parameters Effect
   useEffect(() => {
     if (state.eqNode) {
-      state.eqNode.low.value = eqLow
-      state.eqNode.mid.value = eqMid
-      state.eqNode.high.value = eqHigh
+      state.eqNode.low.rampTo(eqLow, 0.1)
+      state.eqNode.mid.rampTo(eqMid, 0.1)
+      state.eqNode.high.rampTo(eqHigh, 0.1)
     }
   }, [state.eqNode, eqLow, eqMid, eqHigh])
 
@@ -292,11 +312,11 @@ function SynthParams({ midiLearn, setMidiLearn }) {
               </label>
               <input
                 type="range"
-                min="20"
-                max="20000"
-                step="1"
-                value={filterCutoff}
-                onChange={(e) => setFilterCutoff(parseFloat(e.target.value))}
+                min="0"
+                max="1"
+                step="0.005"
+                value={filterCutoffNorm}
+                onChange={(e) => setFilterCutoffNorm(parseFloat(e.target.value))}
               />
               <span className="param-value">{filterCutoff >= 1000 ? (filterCutoff / 1000).toFixed(1) + 'k' : Math.round(filterCutoff)}Hz</span>
             </div>

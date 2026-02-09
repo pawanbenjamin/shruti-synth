@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback, useRef } from "react";
 import * as Tone from "tone";
 import { store } from "./state";
 
@@ -15,6 +15,15 @@ function App() {
   const [keyboardEnabled, setKeyboardEnabled] = useState(false);
   const [keyboardOctave, setKeyboardOctave] = useState(4);
 
+  const audioUnlocked = useRef(false);
+
+  const unlockAudio = useCallback(() => {
+    if (!audioUnlocked.current) {
+      Tone.start();
+      audioUnlocked.current = true;
+    }
+  }, []);
+
   const handlePanic = () => {
     if (state.synth) {
       state.synth.releaseAll(Tone.now());
@@ -24,7 +33,7 @@ function App() {
   return (
     <div className="synth-chassis">
       <div className="wood-panel wood-left"></div>
-      <div className="App">
+      <div className="App" onClick={unlockAudio} onTouchStart={unlockAudio}>
         {/* Nameplate */}
         <div className="synth-header">
           <h1>Shruti Synth</h1>
