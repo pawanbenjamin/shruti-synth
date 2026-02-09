@@ -124,6 +124,26 @@
   margin-bottom: 6px;
 }
 
+/* Panel on/off toggle */
+.param-section-label .panel-toggle {
+  float: right;
+  font-size: 9px;
+  padding: 2px 8px;
+  letter-spacing: 1px;
+}
+
+.param-section-label .panel-toggle.active {
+  background: linear-gradient(180deg, #4a3510 0%, #2a1f0a 100%);
+  color: var(--amber);
+  border-color: var(--amber-dim);
+}
+
+/* Disabled panel dims controls */
+.panel-disabled .param-row {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
 /* MIDI learn label override */
 .learn {
   color: var(--led-red) !important;

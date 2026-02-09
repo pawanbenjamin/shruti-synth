@@ -33,6 +33,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
   const [type, setType] = useState('sine')
 
   // Filter Variables
+  const [filterEnabled, setFilterEnabled] = useState(false)
   const [filterType, setFilterType] = useState('lowpass')
   // Slider is 0-1 (logarithmic), mapped to 20-20000Hz
   const [filterCutoffNorm, setFilterCutoffNorm] = useState(1)
@@ -42,6 +43,11 @@ function SynthParams({ midiLearn, setMidiLearn }) {
   // Log scale: 0→20Hz, 0.5→~632Hz, 1→20000Hz
   const cutoffFromNorm = (norm) => 20 * Math.pow(1000, norm)
   const filterCutoff = cutoffFromNorm(filterCutoffNorm)
+
+  // Bypass values per filter type — makes the filter transparent without changing type
+  const getBypassFreq = (type) => {
+    return type === 'highpass' ? 20 : 20000
+  }
 
   // EQ Variables
   const [eqLow, setEqLow] = useState(0)
@@ -95,7 +101,7 @@ function SynthParams({ midiLearn, setMidiLearn }) {
     type,
   ])
 
-  // Filter Parameters Effect
+  // Filter type & rolloff — only change when enabled (type change is always instant)
   useEffect(() => {
     if (state.filter) {
       state.filter.type = filterType
@@ -103,22 +109,25 @@ function SynthParams({ midiLearn, setMidiLearn }) {
     }
   }, [state.filter, filterType, filterRolloff])
 
-  // Filter frequency & Q — use setTargetAtTime for glitch-free real-time control
+  // Filter frequency — ramp to bypass or user value depending on enabled state
   useEffect(() => {
     if (state.filter) {
       const now = state.filter.context.currentTime
+      const targetFreq = filterEnabled ? filterCutoff : getBypassFreq(filterType)
       state.filter.frequency.cancelScheduledValues(now)
-      state.filter.frequency.setTargetAtTime(filterCutoff, now, 0.03)
+      state.filter.frequency.setTargetAtTime(targetFreq, now, 0.03)
     }
-  }, [state.filter, filterCutoff])
+  }, [state.filter, filterEnabled, filterCutoff, filterType])
 
+  // Filter Q — ramp to minimum when disabled
   useEffect(() => {
     if (state.filter) {
       const now = state.filter.context.currentTime
+      const targetQ = filterEnabled ? filterQ : 0.7
       state.filter.Q.cancelScheduledValues(now)
-      state.filter.Q.setTargetAtTime(filterQ, now, 0.03)
+      state.filter.Q.setTargetAtTime(targetQ, now, 0.03)
     }
-  }, [state.filter, filterQ])
+  }, [state.filter, filterEnabled, filterQ])
 
   // EQ Parameters Effect
   useEffect(() => {
@@ -276,8 +285,16 @@ function SynthParams({ midiLearn, setMidiLearn }) {
           </div>
         </div>
 
-        <div className="panel panel-stacked">
-          <div className="param-section-label">Filter</div>
+        <div className={`panel panel-stacked ${!filterEnabled ? 'panel-disabled' : ''}`}>
+          <div className="param-section-label">
+            Filter
+            <button
+              className={`panel-toggle ${filterEnabled ? 'active' : ''}`}
+              onClick={() => setFilterEnabled(!filterEnabled)}
+            >
+              {filterEnabled ? 'On' : 'Off'}
+            </button>
+          </div>
 
           <div className="param-row">
             <div className="param-control">
