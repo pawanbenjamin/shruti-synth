@@ -124,18 +124,34 @@
   margin-bottom: 6px;
 }
 
-/* Panel on/off toggle */
+/* Panel on/off toggle — round analog pushbutton */
 .param-section-label .panel-toggle {
   float: right;
-  font-size: 9px;
-  padding: 2px 8px;
-  letter-spacing: 1px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 0;
+  border: 2px solid #333;
+  background:
+    radial-gradient(circle at 40% 35%, #444, #1a1a1a 70%);
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  position: relative;
+  top: -1px;
+  cursor: pointer;
+  transition: box-shadow 0.15s;
 }
 
 .param-section-label .panel-toggle.active {
-  background: linear-gradient(180deg, #4a3510 0%, #2a1f0a 100%);
-  color: var(--amber);
   border-color: var(--amber-dim);
+  background:
+    radial-gradient(circle at 40% 35%, var(--amber), #5a3010 70%);
+  box-shadow:
+    0 0 6px rgba(212, 136, 43, 0.5),
+    0 1px 3px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 /* Disabled panel dims controls */

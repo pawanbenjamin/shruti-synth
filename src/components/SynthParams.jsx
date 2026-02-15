@@ -291,9 +291,8 @@ function SynthParams({ midiLearn, setMidiLearn }) {
             <button
               className={`panel-toggle ${filterEnabled ? 'active' : ''}`}
               onClick={() => setFilterEnabled(!filterEnabled)}
-            >
-              {filterEnabled ? 'On' : 'Off'}
-            </button>
+              aria-label={filterEnabled ? 'Filter on' : 'Filter off'}
+            />
           </div>
 
           <div className="param-row">
